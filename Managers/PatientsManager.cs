@@ -2,6 +2,7 @@
 using HealthAPI.Controllers.DTO;
 using HealthAPI.Models;
 using HealthAPI.Replicates;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealthAPI.Managers
 {
@@ -19,6 +20,8 @@ namespace HealthAPI.Managers
         {
             try
             {
+
+                DBContext.Patients.Include(it => it.Doctors).ToList();
                 foreach (EFPatient item in DBContext.Patients)
                 {
                     if (item.IsDeleted != true) _patients.Add(new Patient(item));

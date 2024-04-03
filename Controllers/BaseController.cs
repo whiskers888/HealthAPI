@@ -19,8 +19,8 @@ namespace HealthAPI.Controllers
             return new JsonResult(
                 new
                 {
-                    status = status,
-                    data = data,
+                    status,
+                    data,
                     datetime = DateTime.Now.ToString()
                 });
         }

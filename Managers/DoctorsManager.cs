@@ -18,10 +18,10 @@ namespace HealthAPI.Managers
         public Doctor[] Doctors { get => _doctors.ToArray (); }
         public bool Read()
         {
-            DBContext.Doctors.Include(it => it.EFPatients).ToList();
             try
             {
-                foreach(EFDoctor item in DBContext.Doctors)
+                DBContext.Doctors.Include(it => it.EFPatients).ToList();
+                foreach (EFDoctor item in DBContext.Doctors)
                 {
                     if(item.IsDeleted != true) _doctors.Add(new Doctor(item));
                 }
@@ -66,6 +66,7 @@ namespace HealthAPI.Managers
                 _doctor.StartDateWork = model.startDateWork;
 
                 DBContext.Update(_doctor);
+                DBContext.SaveChanges();
 
                 _doctors.Remove(_doctors.FirstOrDefault(it => it.Id == model.id));
                 Doctor repl = new Doctor(_doctor);
@@ -122,7 +123,7 @@ namespace HealthAPI.Managers
                 EFDoctor _doctor = DBContext.Doctors.FirstOrDefault(it => it.Id == id);
                 _doctor.IsDeleted = true;
                 DBContext.Update(_doctor);
-
+                DBContext.SaveChanges();
                 _doctors.Remove(_doctors.FirstOrDefault(it => it.Id == id));
                 return true;
 

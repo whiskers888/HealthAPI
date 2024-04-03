@@ -32,6 +32,7 @@ namespace HealthAPI.Context
         public string Title { get; set; }
         public IConfiguration Configuration { get; set; }
 
+        /*Здесь указать название подключения из appsettings*/
         public DBContext CreateDbContext() => new DBContext(Configuration.GetConnectionString("DefaultConnection"));
 
     }

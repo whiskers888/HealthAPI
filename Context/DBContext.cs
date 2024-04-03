@@ -11,7 +11,7 @@ namespace HealthAPI.Context
         public DBContext(string cnnString)
         {
             ConnectionString = cnnString;
-            /*Database.EnsureDeleted();*/
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -20,6 +20,9 @@ namespace HealthAPI.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(ConnectionString);
+            /*Если используете другие БД*/
+            /*optionsBuilder.UseNpgsql(ConnectionString);
+            optionsBuilder.UseMySQL(ConnectionString);*/
         }
     }
 }
